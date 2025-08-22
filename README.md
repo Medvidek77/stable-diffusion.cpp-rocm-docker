@@ -4,7 +4,7 @@
 
 *Find your GPU target with `rocminfo | grep gfx` (e.g., `gfx1030`, `gfx1100`)*
 
-## Build
+# Build
 You only need the `Dockerfile` to build the image from the source.
 
 ## Replace 'gfx1030' with your AMD GPU target
