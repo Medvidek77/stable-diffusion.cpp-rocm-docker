@@ -13,13 +13,16 @@ docker build --build-arg GPU_TARGET=gfx1030 -t sd-runtime:latest .
 ```
 
 # Template
+```
 docker run --rm -it \
   --device=/dev/kfd --device=/dev/dri \
   -v /path/to/models:/workspace/models:ro \
   -v /path/to/outputs:/workspace/outputs \
   sd-runtime:latest [arguments...]
+```
 
 # Example
+```
 docker run --rm -it \
   --device=/dev/kfd --device=/dev/dri \
   -v ~/sd_models:/workspace/models:ro \
@@ -30,3 +33,4 @@ docker run --rm -it \
     --t5xxl /workspace/models/t5xxl_fp16.safetensors \
     -p "a lovely cat" \
     -o /workspace/outputs/my_cat.png
+```
