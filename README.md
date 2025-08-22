@@ -7,7 +7,7 @@
 ## Build
 You only need the `Dockerfile` to build the image from the source.
 
-# Replace 'gfx1030' with your AMD GPU target
+## Replace 'gfx1030' with your AMD GPU target
 ```
 docker build --build-arg GPU_TARGET=gfx1030 -t sd-runtime:latest .
 ```
