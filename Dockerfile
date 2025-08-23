@@ -1,4 +1,4 @@
-# Build stage 
+##### Build stage #####
 FROM rocm/dev-ubuntu-22.04:latest AS build
 
 # Define build arguments
@@ -26,7 +26,7 @@ RUN rm -rf build && mkdir build && cd build && \
              -DCMAKE_POSITION_INDEPENDENT_CODE=ON && \
     ninja
 
-# Runtime stage
+##### Runtime stage #####
 FROM ubuntu:22.04 AS runtime
 
 ENV ROCM_PATH=/opt/rocm
