@@ -31,6 +31,6 @@ docker run --rm -it \
     --diffusion-model /workspace/models/chroma-unlocked-v50-Q8_0.gguf \
     --vae /workspace/models/ae.sft \
     --t5xxl /workspace/models/t5xxl_fp16.safetensors \
-    -p "a lovely cat" \
+    -p "cute cat" \
     -o /workspace/outputs/my_cat.png
 ```
