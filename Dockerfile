@@ -1,9 +1,11 @@
 # ---------- Build stage ----------
 FROM rocm/dev-ubuntu-22.04:latest AS build
 
-# Define a build argument for the GPU target with a default value
+# Define build arguments, default branch is now 'master'
 ARG GPU_TARGET=gfx1030
+ARG SD_CPP_BRANCH=master
 
+# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cmake \
     ninja-build \
@@ -11,8 +13,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     hipblas-dev \
     rocblas-dev
 
-WORKDIR /sd.cpp
-COPY . .
+# Set a working directory and clone the source code
+WORKDIR /app
+RUN git clone --recursive --depth 1 --branch ${SD_CPP_BRANCH} https://github.com/leejet/stable-diffusion.cpp.git .
+
+# Build the project
 RUN rm -rf build && mkdir build && cd build && \
     cmake .. -G Ninja \
              -DCMAKE_BUILD_TYPE=Release \
@@ -35,7 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /workspace
 
-COPY --from=build /sd.cpp/build/bin/sd /usr/local/bin/sd
+COPY --from=build /app/build/bin/sd /usr/local/bin/sd
 RUN chmod +x /usr/local/bin/sd
 
 ENTRYPOINT ["/usr/local/bin/sd"]
