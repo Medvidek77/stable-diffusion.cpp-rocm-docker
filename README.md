@@ -9,7 +9,7 @@ You only need the `Dockerfile` to build the image from the source.
 
 Replace 'gfx1030' with your AMD GPU target
 ```
-docker build --build-arg GPU_TARGET=gfx1030 -t sd-runtime:latest .
+docker build --build-arg GPU_TARGET=gfx1030 -t sd.cpp-rocm:latest .
 ```
 
 # Template
@@ -18,7 +18,7 @@ docker run --rm -it \
   --device=/dev/kfd --device=/dev/dri \
   -v /path/to/models:/workspace/models:ro \
   -v /path/to/outputs:/workspace/outputs \
-  sd-runtime:latest [arguments...]
+  sd.cpp-rocm:latest [arguments...]
 ```
 
 # Example
@@ -27,7 +27,7 @@ docker run --rm -it \
   --device=/dev/kfd --device=/dev/dri \
   -v ~/sd_models:/workspace/models:ro \
   -v ~/sd_outputs:/workspace/outputs \
-  sd-runtime:latest \
+  sd.cpp-rocm:latest \
     --diffusion-model /workspace/models/chroma-unlocked-v50-Q8_0.gguf \
     --vae /workspace/models/ae.sft \
     --t5xxl /workspace/models/t5xxl_fp16.safetensors \
