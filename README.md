@@ -2,7 +2,7 @@
 
 *Minimal Dockerfile for running [stable-diffusion.cpp](https://github.com/leejet/stable-diffusion.cpp) on AMD GPUs with ROCm.*
 
-*Find your GPU target with `rocminfo | grep gfx` (e.g., `gfx1030`, `gfx1100`)*
+*Find your GPU target with `rocminfo | grep gfx` (e.g., `gfx1030`, `gfx1100`) or check out [table of targets](compatibility.md)*
 
 # Build
 You only need the `Dockerfile` to build the image from the source.
