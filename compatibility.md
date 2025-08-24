@@ -39,4 +39,3 @@
 | AMD Radeon RX 6650 XT                  | gfx1032  |
 | AMD Radeon RX 6600 XT                  | gfx1032  |
 | AMD Radeon RX 6600                     | gfx1032  |
-| AMD Radeon VII                         | gfx906   |
