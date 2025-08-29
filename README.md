@@ -5,6 +5,7 @@
 *Find your GPU target with `rocminfo | grep gfx` (e.g., `gfx1030`, `gfx1100`) or check out [table of targets](compatibility.md)*
 
 # Download
+[docker hub](https://hub.docker.com/r/medvidek777/stable-diffusion.cpp-rocm)
 ```
 docker pull medvidek777/stable-diffusion.cpp-rocm:gfx1030
 ```
