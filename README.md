@@ -7,7 +7,7 @@
 # Download
 [docker hub](https://hub.docker.com/r/medvidek777/stable-diffusion.cpp-rocm)
 ```
-docker pull medvidek777/stable-diffusion.cpp-rocm:gfx1030
+docker pull medvidek777/stable-diffusion.cpp-rocm:latest
 ```
 
 # Build
