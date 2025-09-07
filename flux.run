@@ -1,0 +1,88 @@
+#!/bin/sh
+
+# Settings
+models_path="$HOME/stable-diffusion.cpp"
+outputs_path="$HOME/sd-outputs"
+gpu="latest" # latest = gfx1030
+verbose="true"
+as_root="sudo" # sudo or doas 
+
+# Model files
+model="flux1-krea-dev-Q8_0.gguf"
+ae="ae-krea.safetensors"
+clip_l="clip_l.safetensors"
+t5xxl="t5xxl_fp16.safetensors"
+
+# Generation settings
+positive=""
+negative=""
+width="512"
+height="512"
+cfg="1.0"
+steps="28"
+sampler="euler"
+seed="-1" # -1 = random seed
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+     update)
+      echo ">>> Updating Docker image: medvidek777/stable-diffusion.cpp-rocm:${gpu}"
+      ${as_root} docker pull "medvidek777/stable-diffusion.cpp-rocm:${gpu}"
+      echo ">>> Update complete."
+      exit 0
+      ;;
+    -p|--prompt)
+      positive="$2"
+      shift 2
+      ;;
+    -n|--negative-prompt)
+      negative="$2"
+      shift 2
+      ;;
+    --cfg-scale)
+      cfg="$2"
+      shift 2
+      ;;
+    --steps)
+      steps="$2"
+      shift 2
+      ;;
+    *)
+      echo "Unknown argument: $1"
+      exit 1
+      ;;
+  esac
+done
+
+if [ -z "$positive" ]; then
+  printf "Enter Positive Prompt: "
+  read positive
+  printf "Enter Negative Prompt: "
+  read negative
+fi
+
+# Prepare verbose flag
+verbose_arg=""
+if [ "$verbose" = "true" ]; then
+  verbose_arg="-v"
+fi
+
+${as_root} docker run --rm -it \
+  --device=/dev/kfd --device=/dev/dri \
+  -v "${models_path}/models:/workspace/models:ro" \
+  -v "${outputs_path}:/workspace/outputs" \
+  "medvidek777/stable-diffusion.cpp-rocm:${gpu}" \
+    --diffusion-model "/workspace/models/${model}" \
+    --vae "/workspace/models/${ae}" \
+    --clip_l "/workspace/models/${clip_l}" \
+    --t5xxl "/workspace/models/${t5xxl}" \
+    -p "${positive}" \
+    -n "${negative}" \
+    -H ${height} \
+    -W ${width} \
+    --cfg-scale "${cfg}" \
+    --sampling-method "${sampler}" \
+    --steps "${steps}" \
+    --seed "${seed}" \
+    -o "/workspace/outputs/$(date +%Y-%m-%d%H-%M-%S).png" \
+    ${verbose_arg}
