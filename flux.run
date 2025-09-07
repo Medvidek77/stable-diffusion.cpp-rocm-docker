@@ -61,7 +61,6 @@ if [ -z "$positive" ]; then
   read negative
 fi
 
-# Prepare verbose flag
 verbose_arg=""
 if [ "$verbose" = "true" ]; then
   verbose_arg="-v"
