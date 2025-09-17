@@ -1,5 +1,5 @@
 ##### Build stage #####
-FROM rocm/dev-ubuntu-22.04:latest AS build
+FROM rocm/dev-ubuntu-24.04:latest AS build
 
 # Define build arguments
 ARG GPU_TARGET=gfx1030
@@ -27,7 +27,7 @@ RUN rm -rf build && mkdir build && cd build && \
     ninja
 
 ##### Runtime stage #####
-FROM ubuntu:22.04 AS runtime
+FROM ubuntu:24.04 AS runtime
 
 ENV ROCM_PATH=/opt/rocm
 ENV LD_LIBRARY_PATH=${ROCM_PATH}/lib
